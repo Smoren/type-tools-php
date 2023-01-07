@@ -1,4 +1,4 @@
-# Type tools
+# PHP Type Tools
 
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/smoren/type-tools)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Smoren/type-tools-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Smoren/type-tools-php/?branch=master)
@@ -6,7 +6,7 @@
 ![Build and test](https://github.com/Smoren/type-tools-php/actions/workflows/test_master.yml/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Helpers for different operations with PHP data types.
+Helpers for different operations with PHP data types, variables and containers.
 
 ## How to install to your project
 ```
@@ -461,3 +461,7 @@ composer install
 composer test-init
 composer test
 ```
+
+## License
+
+PHP Type Tools is licensed under the MIT License.
