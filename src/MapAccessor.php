@@ -6,7 +6,7 @@ namespace Smoren\TypeTools;
 
 use ArrayAccess;
 
-class ContainerAccessor
+class MapAccessor
 {
     /**
      * @template T
@@ -109,12 +109,8 @@ class ContainerAccessor
      */
     protected static function getFromObject(object $container, string $key, $defaultValue)
     {
-        if(ObjectAccessor::hasPublicProperty($container, $key)) {
-            return $container->{$key} ?? $defaultValue;
-        }
-
-        if(ObjectAccessor::hasPropertyAccessibleByGetter($container, $key)) {
-            return ObjectAccessor::getPropertyByGetter($container, $key);
+        if(ObjectAccessor::hasAccessibleProperty($container, $key)) {
+            return ObjectAccessor::getPropertyValue($container, $key);
         }
 
         return $defaultValue;

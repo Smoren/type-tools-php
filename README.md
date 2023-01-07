@@ -40,16 +40,12 @@ In non-strict mode:
 - arrays: unique by serialized value;
 - resources: result is unique by instance.
 
-#### UniqueExtractor
-
-Helper for extracting unique string IDs and hashs for any data in PHP.
-
-##### getString
+#### getString
 
 ```UniqueExtractor::getString(mixed $var, bool $strict): string```
 
 ```php
-use function Smoren\Unique\UniqueExtractor;
+use Smoren\Unique\UniqueExtractor;
 
 $intValue = 5;
 $floatValue = 5.0;

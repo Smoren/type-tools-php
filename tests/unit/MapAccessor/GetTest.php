@@ -1,9 +1,9 @@
 <?php
 
-namespace Smoren\TypeTools\Tests\Unit\ContainerAccessor;
+namespace Smoren\TypeTools\Tests\Unit\MapAccessor;
 
 use Codeception\Test\Unit;
-use Smoren\TypeTools\ContainerAccessor;
+use Smoren\TypeTools\MapAccessor;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use ArrayAccess;
 use ArrayObject;
@@ -17,18 +17,18 @@ class GetTest extends Unit
      * @param mixed $defaultValue
      * @param mixed $expected
      * @return void
-     * @dataProvider getFromArrayDataProvider
+     * @dataProvider fromArrayDataProvider
      */
-    public function testGetFromArray(array $input, string $key, $defaultValue, $expected): void
+    public function testFromArray(array $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = ContainerAccessor::get($input, $key, $defaultValue);
+        $result = MapAccessor::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function getFromArrayDataProvider(): array
+    public function fromArrayDataProvider(): array
     {
         return [
             [[], '', null, null],
@@ -56,18 +56,18 @@ class GetTest extends Unit
      * @param mixed $defaultValue
      * @param mixed $expected
      * @return void
-     * @dataProvider getFromArrayAccessDataProvider
+     * @dataProvider fromArrayAccessDataProvider
      */
-    public function testGetFromArrayAccess(ArrayAccess $input, string $key, $defaultValue, $expected): void
+    public function testFromArrayAccess(ArrayAccess $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = ContainerAccessor::get($input, $key, $defaultValue);
+        $result = MapAccessor::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function getFromArrayAccessDataProvider(): array
+    public function fromArrayAccessDataProvider(): array
     {
         $wrap = static function(array $input): ArrayAccess {
             return new ArrayObject($input);
@@ -99,18 +99,18 @@ class GetTest extends Unit
      * @param mixed $defaultValue
      * @param mixed $expected
      * @return void
-     * @dataProvider getFromStdClassDataProvider
+     * @dataProvider fromStdClassDataProvider
      */
-    public function testGetFromStdClass(stdClass $input, string $key, $defaultValue, $expected): void
+    public function testFromStdClass(stdClass $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = ContainerAccessor::get($input, $key, $defaultValue);
+        $result = MapAccessor::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function getFromStdClassDataProvider(): array
+    public function fromStdClassDataProvider(): array
     {
         $wrap = static function(array $input): object {
             return (object)$input;
@@ -142,18 +142,18 @@ class GetTest extends Unit
      * @param mixed $defaultValue
      * @param mixed $expected
      * @return void
-     * @dataProvider getFromObjectDataProvider
+     * @dataProvider fromObjectDataProvider
      */
-    public function testGetFromObject(object $input, string $key, $defaultValue, $expected): void
+    public function testFromObject(object $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = ContainerAccessor::get($input, $key, $defaultValue);
+        $result = MapAccessor::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function getFromObjectDataProvider(): array
+    public function fromObjectDataProvider(): array
     {
         return [
             [new ClassWithAccessibleProperties(), '', null, null],
@@ -182,18 +182,18 @@ class GetTest extends Unit
      * @param string $key
      * @param mixed $defaultValue
      * @return void
-     * @dataProvider getFromScalarDataProvider
+     * @dataProvider fromScalarDataProvider
      */
-    public function testGetFromScalar($input, string $key, $defaultValue): void
+    public function testFromScalar($input, string $key, $defaultValue): void
     {
         // When
-        $result = ContainerAccessor::get($input, $key, $defaultValue);
+        $result = MapAccessor::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($defaultValue, $result);
     }
 
-    public function getFromScalarDataProvider(): array
+    public function fromScalarDataProvider(): array
     {
         return [
             ['', '', null],

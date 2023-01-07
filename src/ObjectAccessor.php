@@ -16,6 +16,41 @@ class ObjectAccessor
     /**
      * @param object $object
      * @param string $propertyName
+     * @return mixed
+     */
+    public static function getPropertyValue(object $object, string $propertyName)
+    {
+        if(static::hasPublicProperty($object, $propertyName)) {
+            return $object->{$propertyName};
+        }
+
+        return static::getPropertyValueByGetter($object, $propertyName);
+    }
+
+    /**
+     * @param object $object
+     * @param string $propertyName
+     * @return mixed
+     */
+    public static function getPropertyValueByGetter(object $object, string $propertyName)
+    {
+        return $object->{static::getPropertyGetterName($propertyName)}();
+    }
+
+    /**
+     * @param object $object
+     * @param string $propertyName
+     * @return bool
+     */
+    public static function hasAccessibleProperty(object $object, string $propertyName): bool
+    {
+        return static::hasPublicProperty($object, $propertyName)
+            || static::hasPropertyAccessibleByGetter($object, $propertyName);
+    }
+
+    /**
+     * @param object $object
+     * @param string $propertyName
      * @return bool
      */
     public static function hasPublicProperty(object $object, string $propertyName): bool
@@ -31,18 +66,6 @@ class ObjectAccessor
 
     /**
      * @param object $object
-     * @param string $methodName
-     * @return bool
-     */
-    public static function hasPublicMethod(object $object, string $methodName): bool
-    {
-        return
-            static::hasMethod($object, $methodName) &&
-            static::getReflectionMethod($object, $methodName)->isPublic();
-    }
-
-    /**
-     * @param object $object
      * @param string $propertyName
      * @return bool
      */
@@ -54,21 +77,23 @@ class ObjectAccessor
     /**
      * @param object $object
      * @param string $propertyName
-     * @return mixed
-     */
-    public static function getPropertyByGetter(object $object, string $propertyName)
-    {
-        return $object->{static::getPropertyGetterName($propertyName)}();
-    }
-
-    /**
-     * @param object $object
-     * @param string $propertyName
      * @return bool
      */
     public static function hasProperty(object $object, string $propertyName): bool
     {
         return property_exists($object, $propertyName);
+    }
+
+    /**
+     * @param object $object
+     * @param string $methodName
+     * @return bool
+     */
+    public static function hasPublicMethod(object $object, string $methodName): bool
+    {
+        return
+            static::hasMethod($object, $methodName) &&
+            static::getReflectionMethod($object, $methodName)->isPublic();
     }
 
     /**

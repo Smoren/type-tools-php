@@ -1,9 +1,9 @@
 <?php
 
-namespace Smoren\TypeTools\Tests\Unit\ContainerAccessor;
+namespace Smoren\TypeTools\Tests\Unit\MapAccessor;
 
 use Codeception\Test\Unit;
-use Smoren\TypeTools\ContainerAccessor;
+use Smoren\TypeTools\MapAccessor;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use ArrayAccess;
 use ArrayObject;
@@ -16,18 +16,18 @@ class ExistsTest extends Unit
      * @param string $key
      * @param bool $expected
      * @return void
-     * @dataProvider existsInArrayDataProvider
+     * @dataProvider arrayDataProvider
      */
-    public function testExistsInArray(array $input, string $key, bool $expected): void
+    public function testArray(array $input, string $key, bool $expected): void
     {
         // When
-        $result = ContainerAccessor::exists($input, $key);
+        $result = MapAccessor::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function existsInArrayDataProvider(): array
+    public function arrayDataProvider(): array
     {
         return [
             [[], '', false],
@@ -48,18 +48,18 @@ class ExistsTest extends Unit
      * @param string $key
      * @param bool $expected
      * @return void
-     * @dataProvider existsInArrayAccessDataProvider
+     * @dataProvider arrayAccessDataProvider
      */
-    public function testExistsInArrayAccess(ArrayAccess $input, string $key, bool $expected): void
+    public function testArrayAccess(ArrayAccess $input, string $key, bool $expected): void
     {
         // When
-        $result = ContainerAccessor::exists($input, $key);
+        $result = MapAccessor::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function existsInArrayAccessDataProvider(): array
+    public function arrayAccessDataProvider(): array
     {
         $wrap = static function(array $input): ArrayAccess {
             return new ArrayObject($input);
@@ -84,18 +84,18 @@ class ExistsTest extends Unit
      * @param string $key
      * @param bool $expected
      * @return void
-     * @dataProvider existsInStdClassDataProvider
+     * @dataProvider stdClassDataProvider
      */
-    public function testExistsInStdClass(stdClass $input, string $key, bool $expected): void
+    public function testStdClass(stdClass $input, string $key, bool $expected): void
     {
         // When
-        $result = ContainerAccessor::exists($input, $key);
+        $result = MapAccessor::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function existsInStdClassDataProvider(): array
+    public function stdClassDataProvider(): array
     {
         $wrap = static function(array $input): object {
             return (object)$input;
@@ -120,18 +120,18 @@ class ExistsTest extends Unit
      * @param string $key
      * @param bool $expected
      * @return void
-     * @dataProvider existsInObjectDataProvider
+     * @dataProvider objectDataProvider
      */
-    public function testExistsInObject(object $input, string $key, bool $expected): void
+    public function testObject(object $input, string $key, bool $expected): void
     {
         // When
-        $result = ContainerAccessor::exists($input, $key);
+        $result = MapAccessor::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
     }
 
-    public function existsInObjectDataProvider(): array
+    public function objectDataProvider(): array
     {
         return [
             [new ClassWithAccessibleProperties(), '', false],
@@ -150,18 +150,18 @@ class ExistsTest extends Unit
      * @param scalar $input
      * @param string $key
      * @return void
-     * @dataProvider existsInScalarDataProvider
+     * @dataProvider scalarDataProvider
      */
-    public function testExistsInScalar($input, string $key): void
+    public function testScalar($input, string $key): void
     {
         // When
-        $result = ContainerAccessor::exists($input, $key);
+        $result = MapAccessor::exists($input, $key);
 
         // Then
         $this->assertFalse($result);
     }
 
-    public function existsInScalarDataProvider(): array
+    public function scalarDataProvider(): array
     {
         return [
             ['', ''],
