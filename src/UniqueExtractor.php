@@ -7,6 +7,9 @@ namespace Smoren\TypeTools;
 use Closure;
 use Generator;
 
+/**
+ * Tool for extracting unique IDs and hashes of any PHP variables and data structures.
+ */
 class UniqueExtractor
 {
     /**

@@ -9,11 +9,15 @@ use ReflectionProperty;
 use stdClass;
 
 /**
- * Helper for accessing object properties and methods
+ * Tool for reflecting and accessing object properties and methods.
  */
 class ObjectAccessor
 {
     /**
+     * Returns value of the object property.
+     *
+     * Can access property by its name or by getter.
+     *
      * @param object $object
      * @param string $propertyName
      * @return mixed
@@ -28,8 +32,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns property value by getter.
+     *
      * @param object $object
      * @param string $propertyName
+     *
      * @return mixed
      */
     public static function getPropertyValueByGetter(object $object, string $propertyName)
@@ -38,8 +45,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns true if object has property that is accessible by name or by getter.
+     *
      * @param object $object
      * @param string $propertyName
+     *
      * @return bool
      */
     public static function hasAccessibleProperty(object $object, string $propertyName): bool
@@ -49,8 +59,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns true if object has public property.
+     *
      * @param object $object
      * @param string $propertyName
+     *
      * @return bool
      */
     public static function hasPublicProperty(object $object, string $propertyName): bool
@@ -65,8 +78,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns true if object has property that is accessible by getter.
+     *
      * @param object $object
      * @param string $propertyName
+     *
      * @return bool
      */
     public static function hasPropertyAccessibleByGetter(object $object, string $propertyName): bool
@@ -75,8 +91,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns true if object has property.
+     *
      * @param object $object
      * @param string $propertyName
+     *
      * @return bool
      */
     public static function hasProperty(object $object, string $propertyName): bool
@@ -85,8 +104,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns true if object has public method.
+     *
      * @param object $object
      * @param string $methodName
+     *
      * @return bool
      */
     public static function hasPublicMethod(object $object, string $methodName): bool
@@ -97,8 +119,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns true if object has method.
+     *
      * @param object $object
      * @param string $methodName
+     *
      * @return bool
      */
     public static function hasMethod(object $object, string $methodName): bool
@@ -107,8 +132,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns reflection object of the object property.
+     *
      * @param object $object
      * @param string $propertyName
+     *
      * @return ReflectionProperty
      */
     protected static function getReflectionProperty(object $object, string $propertyName): ReflectionProperty
@@ -117,8 +145,11 @@ class ObjectAccessor
     }
 
     /**
+     * Returns reflection object of the object method.
+     *
      * @param object $object
      * @param string $methodName
+     *
      * @return ReflectionMethod
      */
     protected static function getReflectionMethod(object $object, string $methodName): ReflectionMethod
@@ -127,7 +158,10 @@ class ObjectAccessor
     }
 
     /**
+     * Returns property getter name.
+     *
      * @param string $propertyName
+     *
      * @return string
      */
     protected static function getPropertyGetterName(string $propertyName): string

@@ -6,13 +6,24 @@ namespace Smoren\TypeTools;
 
 use ArrayAccess;
 
+/**
+ * Tool for map-like accessing of different containers by string keys.
+ *
+ * Can access:
+ *  - properties of objects (by name or by getter);
+ *  - elements of arrays and ArrayAccess (by key).
+ */
 class MapAccessor
 {
     /**
+     * Returns value from the container by key or default value if key does not exist.
+     *
      * @template T
+     *
      * @param array<string, T>|ArrayAccess<string, T>|object|mixed $container
      * @param string $key
      * @param T|null $defaultValue
+     *
      * @return T|null
      */
     public static function get($container, string $key, $defaultValue = null)
@@ -30,8 +41,11 @@ class MapAccessor
     }
 
     /**
+     * Returns true if the key exists in the container.
+     *
      * @param array<string, mixed>|ArrayAccess<string, mixed>|object|mixed $container
      * @param string $key
+     *
      * @return bool
      */
     public static function exists($container, string $key): bool
@@ -48,10 +62,14 @@ class MapAccessor
     }
 
     /**
+     * Returns value from the array by key or default value if key does not exist.
+     *
      * @template T
+     *
      * @param array<string, T> $container
      * @param string $key
      * @param T|null $defaultValue
+     *
      * @return T|null
      */
     protected static function getFromArray(array $container, string $key, $defaultValue)
@@ -64,9 +82,12 @@ class MapAccessor
     }
 
     /**
+     * Returns true if the key exists in the array.
+     *
      * @template T
      * @param array<string, T> $container
      * @param string $key
+     *
      * @return bool
      */
     protected static function existsInArray(array $container, string $key): bool
@@ -75,10 +96,14 @@ class MapAccessor
     }
 
     /**
+     * Returns value from the ArrayAccess object by key or default value if key does not exist.
+     *
      * @template T
+     *
      * @param ArrayAccess<string, T> $container
      * @param string $key
      * @param T|null $defaultValue
+     *
      * @return T|null
      */
     protected static function getFromArrayAccess(ArrayAccess $container, string $key, $defaultValue)
@@ -91,9 +116,13 @@ class MapAccessor
     }
 
     /**
+     * Returns true if the key exists in the ArrayAccess object.
+     *
      * @template T
+     *
      * @param ArrayAccess<string, T> $container
      * @param string $key
+     *
      * @return bool
      */
     protected static function existsInArrayAccess(ArrayAccess $container, string $key): bool
@@ -102,9 +131,12 @@ class MapAccessor
     }
 
     /**
+     * Returns value from the object by key or default value if key does not exist.
+     *
      * @param object $container
      * @param string $key
      * @param mixed|null $defaultValue
+     *
      * @return mixed|null
      */
     protected static function getFromObject(object $container, string $key, $defaultValue)
@@ -117,8 +149,11 @@ class MapAccessor
     }
 
     /**
+     * Returns true if the key exists in the object.
+     *
      * @param object $container
      * @param string $key
+     *
      * @return bool
      */
     protected static function existsInObject(object $container, string $key): bool
