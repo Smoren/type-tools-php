@@ -21,6 +21,11 @@ composer require smoren/type-tools
 | [`getString`](#Get-String) | Returns unique string of the given variable          | `UniqueExtractor::getString($var, $strict)` |
 | [`getHash`](#Get-Hash)     | Returns unique md5 hash string of the given variable | `UniqueExtractor::getHash($var, $strict)`   |
 
+### Object Type Caster
+| Method          | Description                           | Code Snippet                                                |
+|-----------------|---------------------------------------|-------------------------------------------------------------|
+| [`cast`](#Cast) | Cast object to another relative type  | `ObjectTypeCaster::cast($sourceObject, $destinationClass)`  |
+
 ### Object Accessor
 | Method                                                                | Description                                                         | Code Snippet                                                            |
 |-----------------------------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
@@ -83,6 +88,7 @@ $floatValueNonStrictUniqueId = UniqueExtractor::getString($floatValue, false);
 var_dump($intValueNonStrictUniqueId === $floatValueNonStrictUniqueId);
 // true
 ```
+
 #### Get Hash
 
 Returns unique md5 hash string of the given variable.
@@ -106,6 +112,79 @@ $floatValueNonStrictHash = UniqueExtractor::getHash($floatValue, false);
 
 var_dump($intValueNonStrictHash === $floatValueNonStrictHash);
 // true
+```
+
+### Object Type Caster
+
+Tool for casting types of objects.
+
+#### Cast
+
+Cast object to another relative type (upcast or downcast).
+
+```ObjectTypeCaster::cast(object $sourceObject, string $destinationClass): mixed```
+
+```php
+use Smoren\TypeTools\ObjectTypeCaster;
+
+class ParentClass
+{
+    public int $a;
+    protected int $b;
+
+    public function __construct(int $a, int $b)
+    {
+        $this->a = $a;
+        $this->b = $b;
+    }
+
+    public function toArray(): array
+    {
+        return [$this->a, $this->b];
+    }
+}
+
+class ChildClass extends ParentClass
+{
+    private $c = null;
+
+    public function __construct(int $a, int $b, int $c)
+    {
+        parent::__construct($a, $b);
+        $this->c = $c;
+    }
+
+    public function toArray(): array
+    {
+        return [$this->a, $this->b, $this->c];
+    }
+}
+
+/* Downcast */
+
+$parentClassObject = new ParentClass(1, 2);
+print_r($parentClassObject->toArray());
+// [1, 2]
+
+$castedToChildClass = ObjectTypeCaster::cast($parentClassObject, ChildClass::class);
+print_r($castedToChildClass->toArray());
+// [1, 2, null]
+
+var_dump(get_class($castedToChildClass));
+// ChildClass
+
+/* Upcast */
+
+$childClassObject = new ChildClass(1, 2, 3);
+print_r($childClassObject->toArray());
+// [1, 2, 3]
+
+$castedToParentClass = ObjectTypeCaster::cast($childClassObject, ParentClass::class);
+print_r($castedToParentClass->toArray());
+// [1, 2]
+
+var_dump(get_class($castedToParentClass));
+// ParentClass
 ```
 
 ### Object Accessor
