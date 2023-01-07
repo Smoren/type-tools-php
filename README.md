@@ -38,7 +38,7 @@ composer require smoren/type-tools
 | [`hasPublicMethod`](#Has-Public-Method)                               | Returns true if object has public method                            | `ObjectAccessor::hasPublicMethod($object, $methodName)`                 |
 | [`hasMethod`](#Has-Method)                                            | Returns true if object has method                                   | `ObjectAccessor::hasMethod($object, $methodName)`                       |
 
-### Map Extractor
+### Map Accessor
 | Method              | Description                                            | Code Snippet                                              |
 |---------------------|--------------------------------------------------------|-----------------------------------------------------------|
 | [`get`](#Get)       | Returns value from the container by key                | `MapExtractor::get($container, $key, $defaultValue)`      |
