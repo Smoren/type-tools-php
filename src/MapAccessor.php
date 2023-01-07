@@ -11,12 +11,12 @@ use ArrayAccess;
  *
  * Can access:
  *  - properties of objects (by name or by getter);
- *  - elements of arrays and ArrayAccess (by key).
+ *  - elements of arrays and ArrayAccess objects (by key).
  */
 class MapAccessor
 {
     /**
-     * Returns value from the container by key or default value if key does not exist.
+     * Returns value from the container by key or default value if key does not exist or not accessible.
      *
      * @template T
      *
@@ -41,7 +41,7 @@ class MapAccessor
     }
 
     /**
-     * Returns true if the key exists in the container.
+     * Returns true if the accessible key exists in the container.
      *
      * @param array<string, mixed>|ArrayAccess<string, mixed>|object|mixed $container
      * @param string $key
