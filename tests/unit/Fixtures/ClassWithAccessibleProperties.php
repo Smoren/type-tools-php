@@ -11,19 +11,14 @@ class ClassWithAccessibleProperties
     private int $privateProperty = 5;
     private int $privatePropertyWithGetterAccess = 6;
 
-    private function getPublicProperty(): int
-    {
-        return $this->publicProperty;
-    }
-
     public function getPublicPropertyWithGetterAccess(): int
     {
         return $this->publicPropertyWithGetterAccess;
     }
 
-    private function getProtectedProperty(): int
+    public function setPublicPropertyWithGetterAccess(int $value): void
     {
-        return $this->protectedProperty;
+        $this->publicPropertyWithSetterAccess = $value;
     }
 
     public function getProtectedPropertyWithGetterAccess(): int
@@ -31,13 +26,18 @@ class ClassWithAccessibleProperties
         return $this->protectedPropertyWithGetterAccess;
     }
 
-    protected function getPrivateProperty(): int
+    public function setProtectedPropertyWithGetterAccess(int $value): void
     {
-        return $this->privateProperty;
+        $this->protectedPropertyWithGetterAccess = $value;
     }
 
     public function getPrivatePropertyWithGetterAccess(): int
     {
         return $this->privatePropertyWithGetterAccess;
+    }
+
+    public function setPrivatePropertyWithGetterAccess(int $value): void
+    {
+        $this->privatePropertyWithGetterAccess = $value;
     }
 }

@@ -20,6 +20,7 @@ class ObjectAccess
      *
      * @param object $object
      * @param string $propertyName
+     *
      * @return mixed
      */
     public static function getPropertyValue(object $object, string $propertyName)
@@ -32,30 +33,52 @@ class ObjectAccess
     }
 
     /**
-     * Returns property value by getter.
+     * Returns value of the object property.
+     *
+     * Can access property by its name or by getter.
      *
      * @param object $object
      * @param string $propertyName
+     * @param mixed $value
      *
-     * @return mixed
+     * @return void
      */
-    public static function getPropertyValueByGetter(object $object, string $propertyName)
+    public static function setPropertyValue(object $object, string $propertyName, $value): void
     {
-        return $object->{static::getPropertyGetterName($propertyName)}();
+        if(static::hasPublicProperty($object, $propertyName) || $object instanceof stdClass) {
+            $object->{$propertyName} = $value;
+            return;
+        }
+
+        static::setPropertyValueBySetter($object, $propertyName, $value);
     }
 
     /**
-     * Returns true if object has property that is accessible by name or by getter.
+     * Returns true if object has property that is accessible to read by name or by getter.
      *
      * @param object $object
      * @param string $propertyName
      *
      * @return bool
      */
-    public static function hasAccessibleProperty(object $object, string $propertyName): bool
+    public static function hasReadableProperty(object $object, string $propertyName): bool
     {
         return static::hasPublicProperty($object, $propertyName)
             || static::hasPropertyAccessibleByGetter($object, $propertyName);
+    }
+
+    /**
+     * Returns true if object has property that is accessible to write by name or by setter.
+     *
+     * @param object $object
+     * @param string $propertyName
+     *
+     * @return bool
+     */
+    public static function hasWritableProperty(object $object, string $propertyName): bool
+    {
+        return static::hasPublicProperty($object, $propertyName)
+            || static::hasPropertyAccessibleBySetter($object, $propertyName);
     }
 
     /**
@@ -75,19 +98,6 @@ class ObjectAccess
         return
             static::hasProperty($object, $propertyName) &&
             static::getReflectionProperty($object, $propertyName)->isPublic();
-    }
-
-    /**
-     * Returns true if object has property that is accessible by getter.
-     *
-     * @param object $object
-     * @param string $propertyName
-     *
-     * @return bool
-     */
-    public static function hasPropertyAccessibleByGetter(object $object, string $propertyName): bool
-    {
-        return static::hasPublicMethod($object, static::getPropertyGetterName($propertyName));
     }
 
     /**
@@ -132,6 +142,59 @@ class ObjectAccess
     }
 
     /**
+     * Returns true if object has property that is accessible by getter.
+     *
+     * @param object $object
+     * @param string $propertyName
+     *
+     * @return bool
+     */
+    protected static function hasPropertyAccessibleByGetter(object $object, string $propertyName): bool
+    {
+        return static::hasPublicMethod($object, static::getPropertyGetterName($propertyName));
+    }
+
+    /**
+     * Returns true if object has property that is accessible by setter.
+     *
+     * @param object $object
+     * @param string $propertyName
+     *
+     * @return bool
+     */
+    protected static function hasPropertyAccessibleBySetter(object $object, string $propertyName): bool
+    {
+        return static::hasPublicMethod($object, static::getPropertySetterName($propertyName));
+    }
+
+    /**
+     * Returns property value by getter.
+     *
+     * @param object $object
+     * @param string $propertyName
+     *
+     * @return mixed
+     */
+    protected static function getPropertyValueByGetter(object $object, string $propertyName)
+    {
+        return $object->{static::getPropertyGetterName($propertyName)}();
+    }
+
+    /**
+     * Sets property value by setter.
+     *
+     * @param object $object
+     * @param string $propertyName
+     * @param mixed $value
+     *
+     * @return void
+     */
+    protected static function setPropertyValueBySetter(object $object, string $propertyName, $value): void
+    {
+        $object->{static::getPropertySetterName($propertyName)}($value);
+    }
+
+    /**
      * Returns reflection object of the object property.
      *
      * @param object $object
@@ -167,5 +230,17 @@ class ObjectAccess
     protected static function getPropertyGetterName(string $propertyName): string
     {
         return 'get'.ucfirst($propertyName);
+    }
+
+    /**
+     * Returns property setter name.
+     *
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    protected static function getPropertySetterName(string $propertyName): string
+    {
+        return 'set'.ucfirst($propertyName);
     }
 }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Smoren\TypeTools;
 
 use ArrayAccess;
+use Smoren\TypeTools\Exceptions\KeyError;
+use stdClass;
 
 /**
  * Tool for map-like accessing of different containers by string keys.
@@ -38,6 +40,32 @@ class MapAccess
         }
 
         return $defaultValue;
+    }
+
+    /**
+     * Sets value to the container by key.
+     *
+     * @template T
+     *
+     * @param array<string, T>|ArrayAccess<string, T>|object|mixed $container
+     * @param string $key
+     * @param T $value
+     *
+     * @return void
+     *
+     * @throws KeyError
+     */
+    public static function set(&$container, string $key, $value): void
+    {
+        switch(true) {
+            case is_array($container):
+            case $container instanceof ArrayAccess:
+                $container[$key] = $value;
+                break;
+            case is_object($container):
+                static::setToObject($container, $key, $value);
+                break;
+        }
     }
 
     /**
@@ -141,11 +169,31 @@ class MapAccess
      */
     protected static function getFromObject(object $container, string $key, $defaultValue)
     {
-        if(ObjectAccess::hasAccessibleProperty($container, $key)) {
+        if(ObjectAccess::hasReadableProperty($container, $key)) {
             return ObjectAccess::getPropertyValue($container, $key);
         }
 
         return $defaultValue;
+    }
+
+    /**
+     * Sets property value to the object if it is writable by name or by setter.
+     *
+     * @param object $container
+     * @param string $key
+     * @param mixed $value
+     *
+     * @return void
+     *
+     * @throws KeyError
+     */
+    protected static function setToObject(object $container, string $key, $value): void
+    {
+        if(!ObjectAccess::hasWritableProperty($container, $key) && !($container instanceof stdClass)) {
+            throw new KeyError("property ".get_class($container)."::{$key} is not writable");
+        }
+
+        ObjectAccess::setPropertyValue($container, $key, $value);
     }
 
     /**
@@ -158,7 +206,6 @@ class MapAccess
      */
     protected static function existsInObject(object $container, string $key): bool
     {
-        return ObjectAccess::hasPublicProperty($container, $key)
-            || ObjectAccess::hasPropertyAccessibleByGetter($container, $key);
+        return ObjectAccess::hasReadableProperty($container, $key);
     }
 }
