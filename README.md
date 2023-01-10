@@ -41,8 +41,8 @@ composer require smoren/type-tools
 ### Map Access
 | Method              | Description                                            | Code Snippet                                              |
 |---------------------|--------------------------------------------------------|-----------------------------------------------------------|
-| [`get`](#Get)       | Returns value from the container by key                | `MapExtractor::get($container, $key, $defaultValue)`      |
-| [`exists`](#Exists) | Returns true if accessible key exists in the container | `MapExtractor::exists($container, $key)`                  |
+| [`get`](#Get)       | Returns value from the container by key                | `MapAccess::get($container, $key, $defaultValue)`      |
+| [`exists`](#Exists) | Returns true if accessible key exists in the container | `MapAccess::exists($container, $key)`                  |
 
 ## Usage
 
