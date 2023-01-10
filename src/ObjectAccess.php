@@ -11,7 +11,7 @@ use stdClass;
 /**
  * Tool for reflecting and accessing object properties and methods.
  */
-class ObjectAccessor
+class ObjectAccess
 {
     /**
      * Returns value of the object property.

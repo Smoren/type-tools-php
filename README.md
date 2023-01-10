@@ -26,19 +26,19 @@ composer require smoren/type-tools
 |-----------------|---------------------------------------|-------------------------------------------------------------|
 | [`cast`](#Cast) | Cast object to another relative type  | `ObjectTypeCaster::cast($sourceObject, $destinationClass)`  |
 
-### Object Accessor
-| Method                                                                | Description                                                         | Code Snippet                                                            |
-|-----------------------------------------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
-| [`getPropertyValue`](#Get-Property-Value)                             | Returns value of the object property                                | `ObjectAccessor::getPropertyValue($object, $propertyName))`             |
-| [`getPropertyValueByGetter`](#Get-Property-Value-By-Getter)           | Returns property value by getter                                    | `ObjectAccessor::getPropertyValueByGetter($object, $propertyName))`     |
-| [`hasAccessibleProperty`](#Has-Accessible-Property)                   | Returns true if object has accessible property by name or by getter | `ObjectAccessor::hasAccessibleProperty($object, $propertyName)`         |
-| [`hasPublicProperty`](#Has-Public-Property)                           | Returns true if object has public property                          | `ObjectAccessor::hasPublicProperty($object, $propertyName)`             |
-| [`hasPropertyAccessibleByGetter`](#Has-Property-Accessible-By-Getter) | Returns true if object has property that is accessible by getter    | `ObjectAccessor::hasPropertyAccessibleByGetter($object, $propertyName)` |
-| [`hasProperty`](#Has-Property)                                        | Returns true if object has property                                 | `ObjectAccessor::hasProperty($object, $propertyName)`                   |
-| [`hasPublicMethod`](#Has-Public-Method)                               | Returns true if object has public method                            | `ObjectAccessor::hasPublicMethod($object, $methodName)`                 |
-| [`hasMethod`](#Has-Method)                                            | Returns true if object has method                                   | `ObjectAccessor::hasMethod($object, $methodName)`                       |
+### Object Access
+| Method                                                                | Description                                                         | Code Snippet                                                          |
+|-----------------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------------------------------|
+| [`getPropertyValue`](#Get-Property-Value)                             | Returns value of the object property                                | `ObjectAccess::getPropertyValue($object, $propertyName))`             |
+| [`getPropertyValueByGetter`](#Get-Property-Value-By-Getter)           | Returns property value by getter                                    | `ObjectAccess::getPropertyValueByGetter($object, $propertyName))`     |
+| [`hasAccessibleProperty`](#Has-Accessible-Property)                   | Returns true if object has accessible property by name or by getter | `ObjectAccess::hasAccessibleProperty($object, $propertyName)`         |
+| [`hasPublicProperty`](#Has-Public-Property)                           | Returns true if object has public property                          | `ObjectAccess::hasPublicProperty($object, $propertyName)`             |
+| [`hasPropertyAccessibleByGetter`](#Has-Property-Accessible-By-Getter) | Returns true if object has property that is accessible by getter    | `ObjectAccess::hasPropertyAccessibleByGetter($object, $propertyName)` |
+| [`hasProperty`](#Has-Property)                                        | Returns true if object has property                                 | `ObjectAccess::hasProperty($object, $propertyName)`                   |
+| [`hasPublicMethod`](#Has-Public-Method)                               | Returns true if object has public method                            | `ObjectAccess::hasPublicMethod($object, $methodName)`                 |
+| [`hasMethod`](#Has-Method)                                            | Returns true if object has method                                   | `ObjectAccess::hasMethod($object, $methodName)`                       |
 
-### Map Accessor
+### Map Access
 | Method              | Description                                            | Code Snippet                                              |
 |---------------------|--------------------------------------------------------|-----------------------------------------------------------|
 | [`get`](#Get)       | Returns value from the container by key                | `MapExtractor::get($container, $key, $defaultValue)`      |
@@ -187,7 +187,7 @@ var_dump(get_class($castedToParentClass));
 // ParentClass
 ```
 
-### Object Accessor
+### Object Access
 
 Tool for reflecting and accessing object properties and methods.
 
@@ -195,12 +195,12 @@ Tool for reflecting and accessing object properties and methods.
 
 Returns value of the object property.
 
-```ObjectAccessor::getPropertyValue(object $object, string $propertyName): mixed```
+```ObjectAccess::getPropertyValue(object $object, string $propertyName): mixed```
 
 Can access property by its name or by getter.
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     public int $publicProperty = 1;
@@ -215,11 +215,11 @@ class MyClass {
 $myObject = new MyClass();
 
 // Getting by name:
-var_dump(ObjectAccessor::getPropertyValue($myObject, 'publicProperty'));
+var_dump(ObjectAccess::getPropertyValue($myObject, 'publicProperty'));
 // 1
 
 // Getting by getter (getPrivateProperty()):
-var_dump(ObjectAccessor::getPropertyValue($myObject, 'privateProperty'));
+var_dump(ObjectAccess::getPropertyValue($myObject, 'privateProperty'));
 // 2
 ```
 
@@ -227,10 +227,10 @@ var_dump(ObjectAccessor::getPropertyValue($myObject, 'privateProperty'));
 
 Returns property value by getter.
 
-```ObjectAccessor::getPropertyValueByGetter(object $object, string $propertyName): mixed```
+```ObjectAccess::getPropertyValueByGetter(object $object, string $propertyName): mixed```
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     private int $privateProperty = 2;
@@ -244,7 +244,7 @@ class MyClass {
 $myObject = new MyClass();
 
 // Getting by getter (getPrivateProperty()):
-var_dump(ObjectAccessor::getPropertyValueByGetter($myObject, 'privateProperty'));
+var_dump(ObjectAccess::getPropertyValueByGetter($myObject, 'privateProperty'));
 // 2
 ```
 
@@ -252,10 +252,10 @@ var_dump(ObjectAccessor::getPropertyValueByGetter($myObject, 'privateProperty'))
 
 Returns true if object has property that is accessible by name or by getter.
 
-```ObjectAccessor::hasAccessibleProperty(object $object, string $propertyName): bool```
+```ObjectAccess::hasAccessibleProperty(object $object, string $propertyName): bool```
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     public int $publicProperty = 1;
@@ -271,15 +271,15 @@ class MyClass {
 $myObject = new MyClass();
 
 // Accessible by name:
-var_dump(ObjectAccessor::hasAccessibleProperty($myObject, 'publicProperty'));
+var_dump(ObjectAccess::hasAccessibleProperty($myObject, 'publicProperty'));
 // true
 
 // Accessible by getter:
-var_dump(ObjectAccessor::hasAccessibleProperty($myObject, 'privateProperty'));
+var_dump(ObjectAccess::hasAccessibleProperty($myObject, 'privateProperty'));
 // true
 
 // Not accessible:
-var_dump(ObjectAccessor::hasAccessibleProperty($myObject, 'notAccessibleProperty'));
+var_dump(ObjectAccess::hasAccessibleProperty($myObject, 'notAccessibleProperty'));
 // false
 ```
 
@@ -287,10 +287,10 @@ var_dump(ObjectAccessor::hasAccessibleProperty($myObject, 'notAccessibleProperty
 
 Returns true if object has public property.
 
-```ObjectAccessor::hasPublicProperty(object $object, string $propertyName): bool```
+```ObjectAccess::hasPublicProperty(object $object, string $propertyName): bool```
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     public int $publicProperty = 1;
@@ -299,10 +299,10 @@ class MyClass {
 
 $myObject = new MyClass();
 
-var_dump(ObjectAccessor::hasPublicProperty($myObject, 'publicProperty'));
+var_dump(ObjectAccess::hasPublicProperty($myObject, 'publicProperty'));
 // true
 
-var_dump(ObjectAccessor::hasPublicProperty($myObject, 'privateProperty'));
+var_dump(ObjectAccess::hasPublicProperty($myObject, 'privateProperty'));
 // false
 ```
 
@@ -310,10 +310,10 @@ var_dump(ObjectAccessor::hasPublicProperty($myObject, 'privateProperty'));
 
 Returns true if object has property that is accessible by getter.
 
-```ObjectAccessor::hasPropertyAccessibleByGetter(object $object, string $propertyName): bool```
+```ObjectAccess::hasPropertyAccessibleByGetter(object $object, string $propertyName): bool```
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     private int $privateProperty = 2;
@@ -327,10 +327,10 @@ class MyClass {
 
 $myObject = new MyClass();
 
-var_dump(ObjectAccessor::hasPropertyAccessibleByGetter($myObject, 'privateProperty'));
+var_dump(ObjectAccess::hasPropertyAccessibleByGetter($myObject, 'privateProperty'));
 // true
 
-var_dump(ObjectAccessor::hasPropertyAccessibleByGetter($myObject, 'notAccessibleProperty'));
+var_dump(ObjectAccess::hasPropertyAccessibleByGetter($myObject, 'notAccessibleProperty'));
 // false
 ```
 
@@ -338,10 +338,10 @@ var_dump(ObjectAccessor::hasPropertyAccessibleByGetter($myObject, 'notAccessible
 
 Returns true if object has property.
 
-```ObjectAccessor::hasProperty(object $object, string $propertyName): bool```
+```ObjectAccess::hasProperty(object $object, string $propertyName): bool```
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     public int $publicProperty = 1;
@@ -350,13 +350,13 @@ class MyClass {
 
 $myObject = new MyClass();
 
-var_dump(ObjectAccessor::hasProperty($myObject, 'publicProperty'));
+var_dump(ObjectAccess::hasProperty($myObject, 'publicProperty'));
 // true
 
-var_dump(ObjectAccessor::hasProperty($myObject, 'privateProperty'));
+var_dump(ObjectAccess::hasProperty($myObject, 'privateProperty'));
 // true
 
-var_dump(ObjectAccessor::hasProperty($myObject, 'anotherProperty'));
+var_dump(ObjectAccess::hasProperty($myObject, 'anotherProperty'));
 // false
 ```
 
@@ -364,10 +364,10 @@ var_dump(ObjectAccessor::hasProperty($myObject, 'anotherProperty'));
 
 Returns true if object has public method.
 
-```ObjectAccessor::hasPublicMethod(object $object, string $methodName): bool```
+```ObjectAccess::hasPublicMethod(object $object, string $methodName): bool```
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     public function publicMethod(): int
@@ -383,10 +383,10 @@ class MyClass {
 
 $myObject = new MyClass();
 
-var_dump(ObjectAccessor::hasPublicMethod($myObject, 'publicMethod'));
+var_dump(ObjectAccess::hasPublicMethod($myObject, 'publicMethod'));
 // true
 
-var_dump(ObjectAccessor::hasPublicMethod($myObject, 'privateMethod'));
+var_dump(ObjectAccess::hasPublicMethod($myObject, 'privateMethod'));
 // false
 ```
 
@@ -394,10 +394,10 @@ var_dump(ObjectAccessor::hasPublicMethod($myObject, 'privateMethod'));
 
 Returns true if object has method.
 
-```ObjectAccessor::hasMethod(object $object, string $methodName): bool```
+```ObjectAccess::hasMethod(object $object, string $methodName): bool```
 
 ```php
-use Smoren\TypeTools\ObjectAccessor;
+use Smoren\TypeTools\ObjectAccess;
 
 class MyClass {
     public function publicMethod(): int
@@ -413,14 +413,14 @@ class MyClass {
 
 $myObject = new MyClass();
 
-var_dump(ObjectAccessor::hasMethod($myObject, 'publicMethod'));
+var_dump(ObjectAccess::hasMethod($myObject, 'publicMethod'));
 // true
 
-var_dump(ObjectAccessor::hasMethod($myObject, 'privateMethod'));
+var_dump(ObjectAccess::hasMethod($myObject, 'privateMethod'));
 // true
 ```
 
-### Map Accessor
+### Map Access
 
 Tool for map-like accessing of different containers by string keys.
 
@@ -432,22 +432,22 @@ Can access:
 
 Returns value from the container by key or default value if key does not exist or not accessible.
 
-```MapAccessor::get(mixed $container, string $key, mixed $defaultValue = null): mixed```
+```MapAccess::get(mixed $container, string $key, mixed $defaultValue = null): mixed```
 
 ```php
-use Smoren\TypeTools\MapAccessor;
+use Smoren\TypeTools\MapAccess;
 
 $array = [
     'a' => 1,
 ];
 
-var_dump(MapAccessor::get($array, 'a', 0));
+var_dump(MapAccess::get($array, 'a', 0));
 // 1
 
-var_dump(MapAccessor::get($array, 'b', 0));
+var_dump(MapAccess::get($array, 'b', 0));
 // 0
 
-var_dump(MapAccessor::get($array, 'b'));
+var_dump(MapAccess::get($array, 'b'));
 // null
 
 class MyClass {
@@ -464,25 +464,25 @@ class MyClass {
 $myObject = new MyClass();
 
 // Accessible by name:
-var_dump(MapAccessor::get($myObject, 'publicProperty', 0));
+var_dump(MapAccess::get($myObject, 'publicProperty', 0));
 // 1
 
 // Accessible by getter:
-var_dump(MapAccessor::get($myObject, 'privateProperty'));
+var_dump(MapAccess::get($myObject, 'privateProperty'));
 // 2
 
 // Not accessible:
-var_dump(MapAccessor::get($myObject, 'notAccessibleProperty', -1));
+var_dump(MapAccess::get($myObject, 'notAccessibleProperty', -1));
 // -1
 
-var_dump(MapAccessor::get($myObject, 'notAccessibleProperty'));
+var_dump(MapAccess::get($myObject, 'notAccessibleProperty'));
 // null
 
 // Nonexistent:
-var_dump(MapAccessor::get($myObject, 'nonexistentProperty', -1));
+var_dump(MapAccess::get($myObject, 'nonexistentProperty', -1));
 // -1
 
-var_dump(MapAccessor::get($myObject, 'nonexistentProperty'));
+var_dump(MapAccess::get($myObject, 'nonexistentProperty'));
 // null
 ```
 
@@ -490,19 +490,19 @@ var_dump(MapAccessor::get($myObject, 'nonexistentProperty'));
 
 Returns true if accessible key exists in the container.
 
-```MapAccessor::exists(mixed $container, string $key): bool```
+```MapAccess::exists(mixed $container, string $key): bool```
 
 ```php
-use Smoren\TypeTools\MapAccessor;
+use Smoren\TypeTools\MapAccess;
 
 $array = [
     'a' => 1,
 ];
 
-var_dump(MapAccessor::exists($array, 'a'));
+var_dump(MapAccess::exists($array, 'a'));
 // true
 
-var_dump(MapAccessor::exists($array, 'b'));
+var_dump(MapAccess::exists($array, 'b'));
 // false
 class MyClass {
     public int $publicProperty = 1;
@@ -518,19 +518,19 @@ class MyClass {
 $myObject = new MyClass();
 
 // Accessible by name:
-var_dump(MapAccessor::exists($myObject, 'publicProperty'));
+var_dump(MapAccess::exists($myObject, 'publicProperty'));
 // true
 
 // Accessible by getter:
-var_dump(MapAccessor::exists($myObject, 'privateProperty'));
+var_dump(MapAccess::exists($myObject, 'privateProperty'));
 // true
 
 // Not accessible:
-var_dump(MapAccessor::get($myObject, 'notAccessibleProperty'));
+var_dump(MapAccess::get($myObject, 'notAccessibleProperty'));
 // false
 
 // Nonexistent:
-var_dump(MapAccessor::get($myObject, 'nonexistentProperty', -1));
+var_dump(MapAccess::get($myObject, 'nonexistentProperty', -1));
 // false
 ```
 

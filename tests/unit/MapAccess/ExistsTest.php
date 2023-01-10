@@ -1,9 +1,9 @@
 <?php
 
-namespace Smoren\TypeTools\Tests\Unit\MapAccessor;
+namespace Smoren\TypeTools\Tests\Unit\MapAccess;
 
 use Codeception\Test\Unit;
-use Smoren\TypeTools\MapAccessor;
+use Smoren\TypeTools\MapAccess;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use ArrayAccess;
 use ArrayObject;
@@ -21,7 +21,7 @@ class ExistsTest extends Unit
     public function testArray(array $input, string $key, bool $expected): void
     {
         // When
-        $result = MapAccessor::exists($input, $key);
+        $result = MapAccess::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -53,7 +53,7 @@ class ExistsTest extends Unit
     public function testArrayAccess(ArrayAccess $input, string $key, bool $expected): void
     {
         // When
-        $result = MapAccessor::exists($input, $key);
+        $result = MapAccess::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -89,7 +89,7 @@ class ExistsTest extends Unit
     public function testStdClass(stdClass $input, string $key, bool $expected): void
     {
         // When
-        $result = MapAccessor::exists($input, $key);
+        $result = MapAccess::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -125,7 +125,7 @@ class ExistsTest extends Unit
     public function testObject(object $input, string $key, bool $expected): void
     {
         // When
-        $result = MapAccessor::exists($input, $key);
+        $result = MapAccess::exists($input, $key);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -155,7 +155,7 @@ class ExistsTest extends Unit
     public function testScalar($input, string $key): void
     {
         // When
-        $result = MapAccessor::exists($input, $key);
+        $result = MapAccess::exists($input, $key);
 
         // Then
         $this->assertFalse($result);

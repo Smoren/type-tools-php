@@ -13,7 +13,7 @@ use ArrayAccess;
  *  - properties of objects (by name or by getter);
  *  - elements of arrays and ArrayAccess objects (by key).
  */
-class MapAccessor
+class MapAccess
 {
     /**
      * Returns value from the container by key or default value if key does not exist or not accessible.
@@ -141,8 +141,8 @@ class MapAccessor
      */
     protected static function getFromObject(object $container, string $key, $defaultValue)
     {
-        if(ObjectAccessor::hasAccessibleProperty($container, $key)) {
-            return ObjectAccessor::getPropertyValue($container, $key);
+        if(ObjectAccess::hasAccessibleProperty($container, $key)) {
+            return ObjectAccess::getPropertyValue($container, $key);
         }
 
         return $defaultValue;
@@ -158,7 +158,7 @@ class MapAccessor
      */
     protected static function existsInObject(object $container, string $key): bool
     {
-        return ObjectAccessor::hasPublicProperty($container, $key)
-            || ObjectAccessor::hasPropertyAccessibleByGetter($container, $key);
+        return ObjectAccess::hasPublicProperty($container, $key)
+            || ObjectAccess::hasPropertyAccessibleByGetter($container, $key);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Smoren\TypeTools\Tests\Unit\MapAccessor;
+namespace Smoren\TypeTools\Tests\Unit\MapAccess;
 
 use Codeception\Test\Unit;
-use Smoren\TypeTools\MapAccessor;
+use Smoren\TypeTools\MapAccess;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use ArrayAccess;
 use ArrayObject;
@@ -22,7 +22,7 @@ class GetTest extends Unit
     public function testFromArray(array $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = MapAccessor::get($input, $key, $defaultValue);
+        $result = MapAccess::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -61,7 +61,7 @@ class GetTest extends Unit
     public function testFromArrayAccess(ArrayAccess $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = MapAccessor::get($input, $key, $defaultValue);
+        $result = MapAccess::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -104,7 +104,7 @@ class GetTest extends Unit
     public function testFromStdClass(stdClass $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = MapAccessor::get($input, $key, $defaultValue);
+        $result = MapAccess::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -147,7 +147,7 @@ class GetTest extends Unit
     public function testFromObject(object $input, string $key, $defaultValue, $expected): void
     {
         // When
-        $result = MapAccessor::get($input, $key, $defaultValue);
+        $result = MapAccess::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($expected, $result);
@@ -187,7 +187,7 @@ class GetTest extends Unit
     public function testFromScalar($input, string $key, $defaultValue): void
     {
         // When
-        $result = MapAccessor::get($input, $key, $defaultValue);
+        $result = MapAccess::get($input, $key, $defaultValue);
 
         // Then
         $this->assertEquals($defaultValue, $result);
