@@ -3,12 +3,11 @@
 namespace Smoren\TypeTools\Tests\Unit\ObjectAccess;
 
 use Codeception\Test\Unit;
-use Error;
 use Smoren\TypeTools\ObjectAccess;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use stdClass;
 
-class HasReadablePropertyTest extends Unit
+class HasPublicPropertyTest extends Unit
 {
     /**
      * @param stdClass $input
@@ -19,7 +18,7 @@ class HasReadablePropertyTest extends Unit
     public function testFromStdClassTrue(stdClass $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasPublicProperty($input, $key);
 
         // Then
         $this->assertTrue($result);
@@ -46,7 +45,7 @@ class HasReadablePropertyTest extends Unit
     public function testFromStdClassFalse(stdClass $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasPublicProperty($input, $key);
 
         // Then
         $this->assertFalse($result);
@@ -60,12 +59,18 @@ class HasReadablePropertyTest extends Unit
 
         return [
             [$wrap([]), ''],
+            [$wrap([]), ''],
+            [$wrap([]), '0'],
             [$wrap([]), '0'],
             [$wrap([]), 'a'],
             [$wrap([]), 'b'],
             [$wrap(['a' => 1, 'b' => 2]), ''],
+            [$wrap(['a' => 1, 'b' => 2]), ''],
+            [$wrap(['a' => 1, 'b' => 2]), '0'],
             [$wrap(['a' => 1, 'b' => 2]), '0'],
             [$wrap(['a' => 1, 'b' => 2]), '1'],
+            [$wrap(['a' => 1, 'b' => 2]), '1'],
+            [$wrap(['a' => 1, 'b' => 2]), '2'],
             [$wrap(['a' => 1, 'b' => 2]), '2'],
         ];
     }
@@ -79,7 +84,7 @@ class HasReadablePropertyTest extends Unit
     public function testFromObjectTrue(object $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasPublicProperty($input, $key);
 
         // Then
         $this->assertTrue($result);
@@ -90,8 +95,6 @@ class HasReadablePropertyTest extends Unit
         return [
             [new ClassWithAccessibleProperties(), 'publicProperty'],
             [new ClassWithAccessibleProperties(), 'publicPropertyWithGetterAccess'],
-            [new ClassWithAccessibleProperties(), 'protectedPropertyWithGetterAccess'],
-            [new ClassWithAccessibleProperties(), 'privatePropertyWithGetterAccess'],
         ];
     }
 
@@ -104,7 +107,7 @@ class HasReadablePropertyTest extends Unit
     public function testFromObjectFalse(object $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasPublicProperty($input, $key);
 
         // Then
         $this->assertFalse($result);
@@ -117,7 +120,9 @@ class HasReadablePropertyTest extends Unit
             [new ClassWithAccessibleProperties(), '0'],
             [new ClassWithAccessibleProperties(), 'unknownProperty'],
             [new ClassWithAccessibleProperties(), 'protectedProperty'],
+            [new ClassWithAccessibleProperties(), 'protectedPropertyWithGetterAccess'],
             [new ClassWithAccessibleProperties(), 'privateProperty'],
+            [new ClassWithAccessibleProperties(), 'privatePropertyWithGetterAccess'],
         ];
     }
 }
