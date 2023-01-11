@@ -4,28 +4,29 @@ namespace Smoren\TypeTools\Tests\Unit\ObjectAccess;
 
 use Codeception\Test\Unit;
 use Error;
+use Smoren\TypeTools\Exceptions\KeyError;
 use Smoren\TypeTools\ObjectAccess;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use stdClass;
 
-class HasReadablePropertyValueTest extends Unit
+class HasWritablePropertyTest extends Unit
 {
     /**
      * @param stdClass $input
      * @param string $key
      * @return void
-     * @dataProvider fromStdClassTrueDataProvider
+     * @dataProvider toStdClassTrueDataProvider
      */
-    public function testFromStdClassTrue(stdClass $input, string $key): void
+    public function testToStdClassTrue(stdClass $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasWritableProperty($input, $key);
 
         // Then
         $this->assertTrue($result);
     }
 
-    public function fromStdClassTrueDataProvider(): array
+    public function toStdClassTrueDataProvider(): array
     {
         $wrap = static function(array $input): object {
             return (object)$input;
@@ -41,18 +42,18 @@ class HasReadablePropertyValueTest extends Unit
      * @param stdClass $input
      * @param string $key
      * @return void
-     * @dataProvider fromStdClassFalseDataProvider
+     * @dataProvider toStdClassFalseDataProvider
      */
-    public function testFromStdClassFalse(stdClass $input, string $key): void
+    public function testToStdClassFalse(stdClass $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasWritableProperty($input, $key);
 
         // Then
         $this->assertFalse($result);
     }
 
-    public function fromStdClassFalseDataProvider(): array
+    public function toStdClassFalseDataProvider(): array
     {
         $wrap = static function(array $input): object {
             return (object)$input;
@@ -80,27 +81,24 @@ class HasReadablePropertyValueTest extends Unit
      * @param object $input
      * @param string $key
      * @return void
-     * @dataProvider fromObjectTrueDataProvider
+     * @dataProvider toObjectTrueDataProvider
+     * @throws KeyError
      */
-    public function testFromObjectTrue(object $input, string $key): void
+    public function testToObjectTrue(object $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasWritableProperty($input, $key);
 
         // Then
         $this->assertTrue($result);
     }
 
-    public function fromObjectTrueDataProvider(): array
+    public function toObjectTrueDataProvider(): array
     {
         return [
             [new ClassWithAccessibleProperties(), 'publicProperty'],
-            [new ClassWithAccessibleProperties(), 'publicProperty'],
-            [new ClassWithAccessibleProperties(), 'publicPropertyWithGetterAccess'],
             [new ClassWithAccessibleProperties(), 'publicPropertyWithGetterAccess'],
             [new ClassWithAccessibleProperties(), 'protectedPropertyWithGetterAccess'],
-            [new ClassWithAccessibleProperties(), 'protectedPropertyWithGetterAccess'],
-            [new ClassWithAccessibleProperties(), 'privatePropertyWithGetterAccess'],
             [new ClassWithAccessibleProperties(), 'privatePropertyWithGetterAccess'],
         ];
     }
@@ -109,29 +107,22 @@ class HasReadablePropertyValueTest extends Unit
      * @param object $input
      * @param string $key
      * @return void
-     * @dataProvider fromObjectFalseDataProvider
+     * @dataProvider toObjectFalseDataProvider
      */
-    public function testFromObjectFalse(object $input, string $key): void
+    public function testToObjectFalse(object $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasReadableProperty($input, $key);
+        $result = ObjectAccess::hasWritableProperty($input, $key);
 
         // Then
         $this->assertFalse($result);
     }
 
-    public function fromObjectFalseDataProvider(): array
+    public function toObjectFalseDataProvider(): array
     {
         return [
-            [new ClassWithAccessibleProperties(), ''],
-            [new ClassWithAccessibleProperties(), ''],
-            [new ClassWithAccessibleProperties(), '0'],
-            [new ClassWithAccessibleProperties(), '0'],
-            [new ClassWithAccessibleProperties(), 'unknownProperty'],
             [new ClassWithAccessibleProperties(), 'unknownProperty'],
             [new ClassWithAccessibleProperties(), 'protectedProperty'],
-            [new ClassWithAccessibleProperties(), 'protectedProperty'],
-            [new ClassWithAccessibleProperties(), 'privateProperty'],
             [new ClassWithAccessibleProperties(), 'privateProperty'],
         ];
     }
