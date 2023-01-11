@@ -40,4 +40,14 @@ class ClassWithAccessibleProperties
     {
         $this->privatePropertyWithGetterAccess = $value;
     }
+
+    protected function protectedMethod(): int
+    {
+        return 100;
+    }
+
+    protected function privateMethod(): int
+    {
+        return 1000;
+    }
 }
