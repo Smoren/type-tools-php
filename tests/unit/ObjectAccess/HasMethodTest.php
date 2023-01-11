@@ -7,7 +7,7 @@ use Smoren\TypeTools\ObjectAccess;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use stdClass;
 
-class HasPublicMethodTest extends Unit
+class HasMethodTest extends Unit
 {
     /**
      * @param object $input
@@ -18,7 +18,7 @@ class HasPublicMethodTest extends Unit
     public function testFromObjectTrue(object $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasPublicMethod($input, $key);
+        $result = ObjectAccess::hasMethod($input, $key);
 
         // Then
         $this->assertTrue($result);
@@ -33,6 +33,8 @@ class HasPublicMethodTest extends Unit
             [new ClassWithAccessibleProperties(), 'setProtectedPropertyWithGetterAccess'],
             [new ClassWithAccessibleProperties(), 'getPrivatePropertyWithGetterAccess'],
             [new ClassWithAccessibleProperties(), 'setPrivatePropertyWithGetterAccess'],
+            [new ClassWithAccessibleProperties(), 'privateMethod'],
+            [new ClassWithAccessibleProperties(), 'privateMethod'],
         ];
     }
 
@@ -45,7 +47,7 @@ class HasPublicMethodTest extends Unit
     public function testFromObjectFalse(object $input, string $key): void
     {
         // When
-        $result = ObjectAccess::hasPublicMethod($input, $key);
+        $result = ObjectAccess::hasMethod($input, $key);
 
         // Then
         $this->assertFalse($result);
@@ -55,8 +57,6 @@ class HasPublicMethodTest extends Unit
     {
         return [
             [new ClassWithAccessibleProperties(), 'unknownMethod'],
-            [new ClassWithAccessibleProperties(), 'protectedMethod'],
-            [new ClassWithAccessibleProperties(), 'privateMethod'],
         ];
     }
 }
