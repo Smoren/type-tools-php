@@ -6,6 +6,7 @@ namespace Smoren\TypeTools;
 
 use ReflectionMethod;
 use ReflectionProperty;
+use Smoren\TypeTools\Exceptions\KeyError;
 use stdClass;
 
 /**
@@ -22,14 +23,20 @@ class ObjectAccess
      * @param string $propertyName
      *
      * @return mixed
+     *
+     * @throws KeyError
      */
     public static function getPropertyValue(object $object, string $propertyName)
     {
+        if(static::hasPropertyAccessibleByGetter($object, $propertyName)) {
+            return static::getPropertyValueByGetter($object, $propertyName);
+        }
+
         if(static::hasPublicProperty($object, $propertyName)) {
             return $object->{$propertyName};
         }
 
-        return static::getPropertyValueByGetter($object, $propertyName);
+        throw new KeyError("property ".get_class($object)."::{$propertyName} is not readable");
     }
 
     /**
@@ -42,15 +49,22 @@ class ObjectAccess
      * @param mixed $value
      *
      * @return void
+     *
+     * @throws KeyError
      */
     public static function setPropertyValue(object $object, string $propertyName, $value): void
     {
+        if(static::hasPropertyAccessibleBySetter($object, $propertyName)) {
+            static::setPropertyValueBySetter($object, $propertyName, $value);
+            return;
+        }
+
         if(static::hasPublicProperty($object, $propertyName) || $object instanceof stdClass) {
             $object->{$propertyName} = $value;
             return;
         }
 
-        static::setPropertyValueBySetter($object, $propertyName, $value);
+        throw new KeyError("property ".get_class($object)."::{$propertyName} is not writable");
     }
 
     /**

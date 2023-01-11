@@ -2,11 +2,11 @@
 
 namespace Smoren\TypeTools\Exceptions;
 
-use Exception;
+use Error;
 
 /**
  * Key error exception.
  */
-class KeyError extends Exception
+class KeyError extends Error
 {
 }

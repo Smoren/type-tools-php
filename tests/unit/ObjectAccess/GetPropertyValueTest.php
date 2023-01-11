@@ -3,7 +3,7 @@
 namespace Smoren\TypeTools\Tests\Unit\ObjectAccess;
 
 use Codeception\Test\Unit;
-use Error;
+use Smoren\TypeTools\Exceptions\KeyError;
 use Smoren\TypeTools\ObjectAccess;
 use Smoren\TypeTools\Tests\Unit\Fixtures\ClassWithAccessibleProperties;
 use stdClass;
@@ -50,8 +50,9 @@ class GetPropertyValueTest extends Unit
             // When
             ObjectAccess::getPropertyValue($input, $key);
             $this->fail();
-        } catch(Error $e) {
+        } catch(KeyError $e) {
             // Then
+            $this->assertEquals("property ".get_class($input)."::{$key} is not readable", $e->getMessage());
         }
     }
 
@@ -121,8 +122,9 @@ class GetPropertyValueTest extends Unit
             // When
             ObjectAccess::getPropertyValue($input, $key);
             $this->fail();
-        } catch(Error $e) {
+        } catch(KeyError $e) {
             // Then
+            $this->assertEquals("property ".get_class($input)."::{$key} is not readable", $e->getMessage());
         }
     }
 

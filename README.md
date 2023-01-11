@@ -200,6 +200,8 @@ Returns value of the object property.
 
 Can access property by its name or by getter.
 
+Throws `Smoren\TypeTools\Exceptions\KeyError` if property is not accessible to read.
+
 ```php
 use Smoren\TypeTools\ObjectAccess;
 
@@ -231,6 +233,8 @@ Sets value of the object property.
 ```ObjectAccess::setPropertyValue(object $object, string $propertyName, mixed $value): void```
 
 Can access property by its name or by setter.
+
+Throws `Smoren\TypeTools\Exceptions\KeyError` if property is not accessible to write.
 
 ```php
 use Smoren\TypeTools\ObjectAccess;
@@ -454,6 +458,8 @@ Can access:
 
 Returns value from the container by key or default value if key does not exist or not accessible.
 
+Throws `Smoren\TypeTools\Exceptions\KeyError` if key is not accessible to read.
+
 ```MapAccess::get(mixed $container, string $key, mixed $defaultValue = null): mixed```
 
 ```php
@@ -513,6 +519,8 @@ var_dump(MapAccess::get($myObject, 'nonexistentProperty'));
 Sets value to the container by key.
 
 ```MapAccess::set(mixed $container, string $key, mixed $value): void```
+
+Throws `Smoren\TypeTools\Exceptions\KeyError` if key is not accessible to write.
 
 ```php
 use Smoren\TypeTools\MapAccess;

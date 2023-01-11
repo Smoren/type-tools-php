@@ -97,6 +97,7 @@ class SetPropertyValueTest extends Unit
             $this->fail();
         } catch(Error $e) {
             // Then
+            $this->assertEquals("property ".get_class($input)."::{$key} is not writable", $e->getMessage());
         }
     }
 

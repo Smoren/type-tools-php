@@ -27,6 +27,8 @@ class MapAccess
      * @param T|null $defaultValue
      *
      * @return T|null
+     *
+     * @throws KeyError
      */
     public static function get($container, string $key, $defaultValue = null)
     {
@@ -166,6 +168,8 @@ class MapAccess
      * @param mixed|null $defaultValue
      *
      * @return mixed|null
+     *
+     * @throws KeyError
      */
     protected static function getFromObject(object $container, string $key, $defaultValue)
     {

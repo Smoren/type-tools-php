@@ -18,7 +18,7 @@ class ClassWithAccessibleProperties
 
     public function setPublicPropertyWithGetterAccess(int $value): void
     {
-        $this->publicPropertyWithSetterAccess = $value;
+        $this->publicPropertyWithGetterAccess = $value;
     }
 
     public function getProtectedPropertyWithGetterAccess(): int
