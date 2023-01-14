@@ -68,13 +68,13 @@ class StrictTest extends Unit
             ['Abc', 'string_Abc'],
 
             // arrays
-            [[], 'array_'.md5(serialize([]))],
-            [[0], 'array_'.md5(serialize([0]))],
-            [[1], 'array_'.md5(serialize([1]))],
-            [[1, 2, 3], 'array_'.md5(serialize([1, 2, 3]))],
-            [[1, 2, '3'], 'array_'.md5(serialize([1, 2, '3']))],
-            [['a', 'b', 'c'], 'array_'.md5(serialize(['a', 'b', 'c']))],
-            [['a' => [1, 2, 3], [4, 5, 6]], 'array_'.md5(serialize(['a' => [1, 2, 3], [4, 5, 6]]))],
+            [[], 'array_'.serialize([])],
+            [[0], 'array_'.serialize([0])],
+            [[1], 'array_'.serialize([1])],
+            [[1, 2, 3], 'array_'.serialize([1, 2, 3])],
+            [[1, 2, '3'], 'array_'.serialize([1, 2, '3'])],
+            [['a', 'b', 'c'], 'array_'.serialize(['a', 'b', 'c'])],
+            [['a' => [1, 2, 3], [4, 5, 6]], 'array_'.serialize(['a' => [1, 2, 3], [4, 5, 6]])],
 
             // stdClass objects
             [$obj = (object)[], 'object_'.spl_object_id($obj)],
@@ -158,13 +158,13 @@ class StrictTest extends Unit
             ['Abc', md5('string_Abc')],
 
             // arrays
-            [[], md5('array_'.md5(serialize([])))],
-            [[0], md5('array_'.md5(serialize([0])))],
-            [[1], md5('array_'.md5(serialize([1])))],
-            [[1, 2, 3], md5('array_'.md5(serialize([1, 2, 3])))],
-            [[1, 2, '3'], md5('array_'.md5(serialize([1, 2, '3'])))],
-            [['a', 'b', 'c'], md5('array_'.md5(serialize(['a', 'b', 'c'])))],
-            [['a' => [1, 2, 3], [4, 5, 6]], md5('array_'.md5(serialize(['a' => [1, 2, 3], [4, 5, 6]])))],
+            [[], md5('array_'.serialize([]))],
+            [[0], md5('array_'.serialize([0]))],
+            [[1], md5('array_'.serialize([1]))],
+            [[1, 2, 3], md5('array_'.serialize([1, 2, 3]))],
+            [[1, 2, '3'], md5('array_'.serialize([1, 2, '3']))],
+            [['a', 'b', 'c'], md5('array_'.serialize(['a', 'b', 'c']))],
+            [['a' => [1, 2, 3], [4, 5, 6]], md5('array_'.serialize(['a' => [1, 2, 3], [4, 5, 6]]))],
 
             // stdClass objects
             [$obj = (object)[], md5('object_'.spl_object_id($obj))],

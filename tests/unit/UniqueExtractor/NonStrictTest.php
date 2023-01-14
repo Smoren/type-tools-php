@@ -68,23 +68,23 @@ class NonStrictTest extends Unit
             ['Abc', 'scalar_Abc'],
 
             // arrays
-            [[], 'array_'.md5(serialize([]))],
-            [[0], 'array_'.md5(serialize([0]))],
-            [[1], 'array_'.md5(serialize([1]))],
-            [[1, 2, 3], 'array_'.md5(serialize([1, 2, 3]))],
-            [[1, 2, '3'], 'array_'.md5(serialize([1, 2, '3']))],
-            [['a', 'b', 'c'], 'array_'.md5(serialize(['a', 'b', 'c']))],
-            [['a' => [1, 2, 3], [4, 5, 6]], 'array_'.md5(serialize(['a' => [1, 2, 3], [4, 5, 6]]))],
+            [[], 'array_'.serialize([])],
+            [[0], 'array_'.serialize([0])],
+            [[1], 'array_'.serialize([1])],
+            [[1, 2, 3], 'array_'.serialize([1, 2, 3])],
+            [[1, 2, '3'], 'array_'.serialize([1, 2, '3'])],
+            [['a', 'b', 'c'], 'array_'.serialize(['a', 'b', 'c'])],
+            [['a' => [1, 2, 3], [4, 5, 6]], 'array_'.serialize(['a' => [1, 2, 3], [4, 5, 6]])],
 
             // stdClass objects
-            [(object)[], 'object_'.md5(serialize((object)[]))],
-            [(object)[1, 2, 3], 'object_'.md5(serialize((object)[1, 2, 3]))],
-            [(object)['a' => 1], 'object_'.md5(serialize((object)['a' => 1]))],
-            [(object)['a' => [1, 2, 3]], 'object_'.md5(serialize((object)['a' => [1, 2, 3]]))],
+            [(object)[], 'object_'.serialize((object)[])],
+            [(object)[1, 2, 3], 'object_'.serialize((object)[1, 2, 3])],
+            [(object)['a' => 1], 'object_'.serialize((object)['a' => 1])],
+            [(object)['a' => [1, 2, 3]], 'object_'.serialize((object)['a' => [1, 2, 3]])],
 
             // another objects
-            [new SerializableFixture(1), 'object_'.md5(serialize(new SerializableFixture(1)))],
-            [new SerializableFixture(2), 'object_'.md5(serialize(new SerializableFixture(2)))],
+            [new SerializableFixture(1), 'object_'.serialize(new SerializableFixture(1))],
+            [new SerializableFixture(2), 'object_'.serialize(new SerializableFixture(2))],
 
             // closures
             [$func = function() {}, 'closure_'.spl_object_id($func)],
@@ -158,23 +158,23 @@ class NonStrictTest extends Unit
             ['Abc', md5('scalar_Abc')],
 
             // arrays
-            [[], md5('array_'.md5(serialize([])))],
-            [[0], md5('array_'.md5(serialize([0])))],
-            [[1], md5('array_'.md5(serialize([1])))],
-            [[1, 2, 3], md5('array_'.md5(serialize([1, 2, 3])))],
-            [[1, 2, '3'], md5('array_'.md5(serialize([1, 2, '3'])))],
-            [['a', 'b', 'c'], md5('array_'.md5(serialize(['a', 'b', 'c'])))],
-            [['a' => [1, 2, 3], [4, 5, 6]], md5('array_'.md5(serialize(['a' => [1, 2, 3], [4, 5, 6]])))],
+            [[], md5('array_'.serialize([]))],
+            [[0], md5('array_'.serialize([0]))],
+            [[1], md5('array_'.serialize([1]))],
+            [[1, 2, 3], md5('array_'.serialize([1, 2, 3]))],
+            [[1, 2, '3'], md5('array_'.serialize([1, 2, '3']))],
+            [['a', 'b', 'c'], md5('array_'.serialize(['a', 'b', 'c']))],
+            [['a' => [1, 2, 3], [4, 5, 6]], md5('array_'.serialize(['a' => [1, 2, 3], [4, 5, 6]]))],
 
             // stdClass objects
-            [(object)[], md5('object_'.md5(serialize((object)[])))],
-            [(object)[1, 2, 3], md5('object_'.md5(serialize((object)[1, 2, 3])))],
-            [(object)['a' => 1], md5('object_'.md5(serialize((object)['a' => 1])))],
-            [(object)['a' => [1, 2, 3]], md5('object_'.md5(serialize((object)['a' => [1, 2, 3]])))],
+            [(object)[], md5('object_'.serialize((object)[]))],
+            [(object)[1, 2, 3], md5('object_'.serialize((object)[1, 2, 3]))],
+            [(object)['a' => 1], md5('object_'.serialize((object)['a' => 1]))],
+            [(object)['a' => [1, 2, 3]], md5('object_'.serialize((object)['a' => [1, 2, 3]]))],
 
             // another objects
-            [new SerializableFixture(1), md5('object_'.md5(serialize(new SerializableFixture(1))))],
-            [new SerializableFixture(2), md5('object_'.md5(serialize(new SerializableFixture(2))))],
+            [new SerializableFixture(1), md5('object_'.serialize(new SerializableFixture(1)))],
+            [new SerializableFixture(2), md5('object_'.serialize(new SerializableFixture(2)))],
 
             // closures
             [$func = function() {}, md5('closure_'.spl_object_id($func))],

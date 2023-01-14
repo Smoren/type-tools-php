@@ -36,7 +36,7 @@ class UniqueExtractor
     {
         switch (true) {
             case is_array($var):
-                return 'array_'.md5(serialize($var));
+                return 'array_'.serialize($var);
             case is_resource($var):
                 preg_match('/#([0-9]+)$/', (string)$var, $matches);
                 return 'resource_'.$matches[1];
@@ -45,7 +45,7 @@ class UniqueExtractor
             case $var instanceof Closure:
                 return 'closure_'.spl_object_id($var);
             case is_object($var):
-                return 'object_'.($strict ? spl_object_id($var) : md5(serialize($var)));
+                return 'object_'.($strict ? spl_object_id($var) : serialize($var));
             case gettype($var) === 'boolean':
                 return 'boolean_'.(int)$var;
             case $strict:
