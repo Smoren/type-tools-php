@@ -192,11 +192,11 @@ class NonStrictTest extends Unit
 
     /**
      * @param resource $resource
-     * @return int
+     * @return string
      */
-    protected function getResourceId($resource): int
+    protected function getResourceId($resource): string
     {
-        preg_match('/#([0-9]+)$/', (string)$resource, $matches);
-        return (int)$matches[1];
+        return get_resource_type($resource).'_'.get_resource_id($resource);
+
     }
 }
