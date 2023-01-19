@@ -196,6 +196,6 @@ class StrictTest extends Unit
      */
     protected function getResourceId($resource): string
     {
-        return get_resource_type($resource).'_'.get_resource_id($resource);
+        return get_resource_type($resource).'_'.(string)$resource;
     }
 }
