@@ -23,7 +23,7 @@ class GetPropertyValueTest extends Unit
         $result = ObjectAccess::getPropertyValue($input, $key);
 
         // Then
-        $this->assertEquals($expected, $result);
+        $this->assertSame($expected, $result);
     }
 
     public function fromStdClassSuccessDataProvider(): array
@@ -52,7 +52,7 @@ class GetPropertyValueTest extends Unit
             $this->fail();
         } catch(KeyError $e) {
             // Then
-            $this->assertEquals("property ".get_class($input)."::{$key} is not readable", $e->getMessage());
+            $this->assertSame("property ".get_class($input)."::{$key} is not readable", $e->getMessage());
         }
     }
 
@@ -93,7 +93,7 @@ class GetPropertyValueTest extends Unit
         $result = ObjectAccess::getPropertyValue($input, $key);
 
         // Then
-        $this->assertEquals($expected, $result);
+        $this->assertSame($expected, $result);
     }
 
     public function fromObjectSuccessDataProvider(): array
@@ -124,7 +124,7 @@ class GetPropertyValueTest extends Unit
             $this->fail();
         } catch(KeyError $e) {
             // Then
-            $this->assertEquals("property ".get_class($input)."::{$key} is not readable", $e->getMessage());
+            $this->assertSame("property ".get_class($input)."::{$key} is not readable", $e->getMessage());
         }
     }
 
