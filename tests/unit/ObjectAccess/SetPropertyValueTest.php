@@ -25,7 +25,7 @@ class SetPropertyValueTest extends Unit
 
         // Then
         $result = ObjectAccess::getPropertyValue($input, $key);
-        $this->assertEquals($value, $result);
+        $this->assertSame($value, $result);
     }
 
     public function toStdClassDataProvider(): array
@@ -69,7 +69,7 @@ class SetPropertyValueTest extends Unit
 
         // Then
         $result = ObjectAccess::getPropertyValue($input, $key);
-        $this->assertEquals($value, $result);
+        $this->assertSame($value, $result);
     }
 
     public function toObjectSuccessDataProvider(): array
@@ -97,7 +97,7 @@ class SetPropertyValueTest extends Unit
             $this->fail();
         } catch(Error $e) {
             // Then
-            $this->assertEquals("property ".get_class($input)."::{$key} is not writable", $e->getMessage());
+            $this->assertSame("property ".get_class($input)."::{$key} is not writable", $e->getMessage());
         }
     }
 

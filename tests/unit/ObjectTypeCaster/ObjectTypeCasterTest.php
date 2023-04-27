@@ -63,7 +63,7 @@ class ObjectTypeCasterTest extends Unit
             $this->fail();
         } catch(\TypeError $e) {
             // Then
-            $this->assertEquals(
+            $this->assertSame(
                 "Classes '".get_class($sourceObject)."' and '{$destinationClass}' must be relatives",
                 $e->getMessage()
             );
@@ -121,7 +121,7 @@ class ObjectTypeCasterTest extends Unit
             $this->fail();
         } catch(\TypeError $e) {
             // Then
-            $this->assertEquals("Class '{$destinationClass}' does not exist", $e->getMessage());
+            $this->assertSame("Class '{$destinationClass}' does not exist", $e->getMessage());
         }
     }
 
