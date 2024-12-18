@@ -51,7 +51,7 @@ class UniqueExtractor
                 return gettype($var).'_'.$var;
             case !$var:
                 return 'boolean_0';
-            case strval($var) === '1':
+            case is_scalar($var) && strval($var) === '1':
                 return 'boolean_1';
             case is_numeric($var):
                 return 'numeric_'.(float)$var;
